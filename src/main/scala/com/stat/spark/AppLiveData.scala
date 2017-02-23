@@ -150,7 +150,7 @@ object AppLiveData {
     val liveNumbersKV = Array("action:live_numbers")
     val liveNumbersFilter = textFile.filter(line => SelectByKV.selectByKV(line, liveNumbersKV))
     //topic_tag:"美国大选;时事政治" //string型，topic或tag值，用英文分号（;）隔开
-    val liveNumbersTagRes = liveNumbersFilter.map(line => (getVal(line, "topic_tag"), 1))
+    val liveNumbersTagRes = liveNumbersFilter.map(line => getVal(line, "topic_tag"))
     val liveNumbersTagCount1 = liveNumbersTagRes.filter(tag => !"".equals(tag)).count()
     writer.println(dateInfo + "\tlive_numbers\ttopic_tag\t1\t" + liveNumbersTagCount1)
     val liveNumbersTagCount0 = liveNumbersTagRes.filter(tag => "".equals(tag)).count()
@@ -166,19 +166,19 @@ object AppLiveData {
         }
     }
     //with_gps:1//int型，是否开启定位：发起直播时记录，是为1否则为0
-    val liveNumbersGpsRes = liveNumbersFilter.map(line => (getVal(line, "with_gps"), 1))
+    val liveNumbersGpsRes = liveNumbersFilter.map(line => getVal(line, "with_gps"))
     val liveNumbersGpsCount1 = liveNumbersGpsRes.filter(gps => "1".equals(gps)).count()
     writer.println(dateInfo + "\tlive_numbers\twith_gps\t1\t" + liveNumbersGpsCount1)
     val liveNumbersGpsCount0 = liveNumbersGpsRes.filter(gps => "0".equals(gps)).count()
     writer.println(dateInfo + "\tlive_numbers\twith_gps\t0\t" + liveNumbersGpsCount0)
     //with_cover:0//int型，是否添加封面：发起直播时记录，是为1，否则为0
-    val liveNumbersCoverRes = liveNumbersFilter.map(line => (getVal(line, "with_cover"), 1))
+    val liveNumbersCoverRes = liveNumbersFilter.map(line => getVal(line, "with_cover"))
     val liveNumbersCoverCount1 = liveNumbersCoverRes.filter(cover => "1".equals(cover)).count()
     writer.println(dateInfo + "\tlive_numbers\twith_cover\t1\t" + liveNumbersCoverCount1)
     val liveNumbersCoverCount0 = liveNumbersCoverRes.filter(cover => "0".equals(cover)).count()
     writer.println(dateInfo + "\tlive_numbers\twith_cover\t0\t" + liveNumbersCoverCount0)
     //anti_shake:0//int型，是否开启了防抖：发起直播时记录，是为1，否则为0
-    val liveNumbersShakeRes = liveNumbersFilter.map(line => (getVal(line, "anti_shake"), 1))
+    val liveNumbersShakeRes = liveNumbersFilter.map(line => getVal(line, "anti_shake"))
     val liveNumbersShakeCount1 = liveNumbersShakeRes.filter(shake => "1".equals(shake)).count()
     writer.println(dateInfo + "\tlive_numbers\tanti_shake\t1\t" + liveNumbersShakeCount1)
     val liveNumbersShakeCount0 = liveNumbersShakeRes.filter(shake => "0".equals(shake)).count()
